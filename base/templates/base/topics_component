@@ -1,0 +1,124 @@
+<style>
+    .sidebar {
+        background-color: #293A80;
+        border-radius: 0 50px 50px 0;
+        width: fit-content;
+        width: 400px;
+        height: 740px;
+
+        position: relative;
+    }
+
+    .title {
+        width: fit-content;
+        margin: 60px auto 20px auto;
+        color: white;
+    }
+
+    h3:link, .reg_text {
+        text-decoration: none;
+    }
+
+    hr {
+        width: 320px;
+        margin: 20px auto 20px auto;
+        height: 2px;
+    }
+
+    .sidebar hr {
+        background-color: white;
+    }
+
+    .teams {
+        width: fit-content;
+        height: fit-content;
+        margin-left: 45px;
+    }
+    .placeholder {
+        height: 10px;
+    }
+
+    .sidemenu_text {
+        color: white;
+        margin-left: 45px;
+    }
+
+    .reg, .reg_text {
+        color: white;
+    }
+
+    .team { 
+        margin-top: 10px;
+        color: white;
+    }
+
+    .reg_field {
+        text-align: center;
+        color: #293A80;
+        border: solid white 3px;
+        border-radius: 100px;
+        width: 300px;
+        height: 50px;
+        margin: auto;
+        margin-top: 300px;
+        bottom: 0px;
+        background-color: #020938;
+    }
+
+    .reg_text {
+        font-size: 20px;
+    }
+
+    .mes {
+        margin: 20px 20px 20px 0;
+    }
+
+    .team_container {
+        margin-top: 20px;
+    }
+
+    .text_margin {
+        width: fit-content;
+        height: fit-content;
+        margin: auto;
+        margin-top: 10px;
+    }
+
+</style>
+<div class="sidebar">
+    <div class="placeholder"></div>
+    <div class="title">
+        <h3>Зарегестрированные команды</h3>
+    </div>
+    <hr>
+    <div class="sidemenu_text">
+        {% if teams.count == 4 %}
+            <div class="mes">
+                <a class="reg">Максимум команд</a>
+            </div>
+        {% else %}
+            {% if player.team.name == None%}
+                <a href="{% url 'create-team' %}" class="reg">Зарегистрироваться</a>
+                <a class="count"> {{teams_count}}/4</a>
+            {% else %}
+                <a class="reg">Зарегестрированно {{teams_count}}/4</a>
+            {% endif %}
+        {% endif %}
+
+    </div>
+
+    <div class="teams">
+        {% for team in teams %}
+            <div class="team_container">
+                <a href="{% url 'team' team.id %}" class="team">{{team.name}}</a>
+            </div>
+        {% endfor %}
+    </div>
+    {% if teams.count != 4 %}
+    <div class="reg_field">
+        <div class="text_margin">
+            <a href="{% url 'create-team' %}" class="reg_text">Зарегистрироваться</a>
+        </div>
+    </div>
+    {% endif %}
+</div>

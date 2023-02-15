@@ -1,0 +1,120 @@
+{% extends 'main.html' %}
+
+{% block content%}
+
+<style>
+    .page_title {
+        text-align: center;
+        font-size: 40px;
+        color: white;
+    }
+
+    .page_title hr {
+        height: 3px;
+        background-color: #293A80;
+        width: 600px;
+        border: none;
+    }
+
+    .form_container {
+        width: 600px;
+        margin: 40px auto 0 auto;
+        color: white;
+    }
+    
+
+    input {
+        background-color: #293A80;
+        border: 3px #537EC5;
+        border-radius: 50px;
+
+        width: 400px;
+        height: 10px;
+        margin: 20px;
+        padding: 10px;
+
+        color: white;
+    }
+
+    input[type="submit"] {
+        height: 40px;
+        width: 200px;
+    }
+
+    .form_span {
+        width: fit-content;
+        margin: 20px;
+    }
+
+    .form_span label {
+        color: white;
+    }
+
+    .submit_button {
+        color: white;
+        font-size: 20px;
+        text-align: center;
+        line-height: 20px;
+    }
+
+    .btn_form_span {
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .form_under {
+        margin: 20px auto 0 auto;
+        text-align: center;
+        color: white;
+    }
+
+</style>
+
+{% if page == 'login' %}
+<div class="page_title">
+    <h3>Login</h3>
+    <hr>
+</div>
+<div class="form_container">
+    <form method="POST" action="">
+        {% csrf_token %}
+
+        <div class="form_span">
+            <label>Username:</label>
+            <input type="text" name="username" placeholder="Username"/>
+        </div>
+        
+        <div class="form_span">
+            <label>Password:</label>
+            <input type="password" name="password" placeholder="Username"/>
+        </div>
+
+        <div class="btn_form_span">
+            <input type="submit" value="Login" class="submit_button"/>
+        </div>
+    </form>
+    <div class="form_under">
+        <p>Haven't signed up yet?</p>
+        <a href="{% url 'register' %}">Sign up</a>
+    </div>
+</div>
+{% else %}
+<div class="page_title">
+    <h3>Register</h3>
+    <hr>
+</div>
+<div class="form_container">
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Register" />
+    </form>
+    <div class="form_under">
+        <p>Already signed up?</p>
+        <a href="{% url 'login' %}">Log in</a>
+    </div>
+</div>
+
+{% endif %}
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<style>
+    .form_container {
+    width: 450px;
+    height: 500px;
+    margin: 0 auto 0 auto;
+    color: white;
+
+    text-align: center;
+    background-color: #293A80;
+
+    border-radius: 0 0 50px 50px;
+
+
+    }
+
+    hr {
+        height: 3px;
+        background-color: #293A80;
+        width: 600px;
+        border: none;
+
+        margin: 0;
+    }
+
+    p {
+        margin-top: 20px;
+    }
+
+    .placeholder {
+        height: 20px;
+    }
+
+    input {
+        background-color: #293A80;
+        border: solid 3px white;
+        border-radius: 50px;
+
+        width: 200px;
+        height: 10px;
+        margin: 20px;
+        padding: 10px;
+
+        color: white;
+    }
+
+    input[type="submit"] {
+        height: 40px;
+        width: 200px;
+    }
+    
+</style>
+
+<div class="form_container">
+    <div class="placeholder"></div>
+    <p>Регистрация новой команды</p>
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Submit" />
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,198 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<style>
+    .home-container {
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr;
+    }
+    .table-container {
+        margin-top: 60px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+
+    }
+    .cell {
+        height: 55px;
+        width: 270px;
+        margin: 20px;
+        line-height: 55px;
+
+        text-align: center;
+        border-radius: 50px;
+        background-color: #293A80;
+
+        text-align: center;
+        vertical-align: baseline;
+    }
+
+    .cell a {
+        font-size: 24px;
+    }
+
+    .table_col {
+        margin: auto;
+    }
+
+    .score_table {
+        margin: auto;
+        margin-top: 60px;
+        width: 80%;
+        
+    }
+
+    .score_row {
+        display: flex;
+        height: 50px;
+        width: fit-content;
+        color: white;
+        text-align: center;
+
+        line-height: 50px;
+        font-size: 32px;
+
+        margin: 0 auto 0 auto;
+    }
+
+    .team_label {
+        background-color: #1B2031;
+        width: 280px;
+        height: 100%;
+    }
+
+    .score_title {
+        text-align: center;
+        padding: 8px;
+        padding-top: 15px;
+
+        font-size: 20px;
+        color: white;
+    }
+
+    .players_sidemenu {
+        background-color: #293A80;
+        border-radius: 50px 0 0 50px;
+        width: fit-content;
+        width: 400px;
+        height: 740px;
+
+        position: relative;
+    }
+
+    .players_sidemenu hr {
+        background-color: white;
+    }
+
+    .players_title {
+        width: fit-content;
+        margin: 60px auto 20px auto;
+        color: white;
+    }
+
+    .players {
+        width: fit-content;
+        height: fit-content;
+        margin-left: 45px;
+    }
+
+    .players p {
+        color: white;
+        font-size: 20px;
+    }
+
+    .team_score_label {
+        background-color: #293A80;
+        width: 140px;
+    }
+
+
+
+</style>
+<div class="home-container">
+    <div class="">
+        {% include 'base/topics_component' %}
+    </div>
+    <div>
+        <div class="table-container">
+            <div class="table_col">
+                {% for team_name in team_list %}
+                    <div class="cell">
+                        <a class="">{{team_name}}</a>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="table_col">
+                {% for winner in winners|slice:":2" %}
+                    <div class="cell">
+                        <a class="">{{winner}}</a>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="table_col">
+                {% for winner in winners|slice:"2:3" %}
+                    <div class="cell">
+                        <a class="">{{winner}}</a>
+                    </div>
+                {% endfor %}
+            </div> 
+        </div>
+        <div class="score_table">
+            <div class="score_title">
+            Match 1
+            </div>
+            <div class="score_row">
+                <div class="team_label" style="border-top-left-radius: 50px;">
+                    {{team_list.0}}
+                </div>
+                <div class="team_score_label">
+                    {{scores.0}}
+                </div>
+                <div class="team_label" style="border-top-right-radius: 50px;">
+                    {{team_list.1}}
+                </div>
+            </div>
+            <div class="score_title">
+                Match 2
+            </div>
+            <div class="score_row">
+                <div class="team_label">
+                    {{team_list.2}}
+
+                </div>
+                <div class="team_score_label">
+                    {{scores.1}}
+
+                </div>
+                <div class="team_label">
+                    {{team_list.3}}
+                </div>
+            </div>
+            <div class="score_title">
+                Match 3
+            </div>
+            <div class="score_row">
+                <div class="team_label" style="border-bottom-left-radius: 50px;">
+                    {{winners.0}}
+                </div>
+                <div class="team_score_label">
+                    {{scores.2}}
+                </div>
+                <div class="team_label" style="border-bottom-right-radius: 50px;">
+                    {{winners.1}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="players_sidemenu">
+        <h3 class="players_title">Зарегестрированные игроки</h3>
+        <hr>
+        <div class="players">
+            {% for player in all_team_players %}
+            <p>{{player.name}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

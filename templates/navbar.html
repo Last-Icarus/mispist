@@ -1,0 +1,84 @@
+<style>
+    .user_label {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .user_label p, a {
+        text-align: center;
+        color: white;
+    }
+
+
+    .navbar {
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .home {
+        text-align: center;
+        color: white;
+
+        background-color: #293A80;
+        border-radius: 0 0 50px 50px;
+        width: 540px;
+        height: 90px;
+        font-size: 80px;
+    }
+
+    .home a:link {
+        text-decoration: none;
+    }
+
+    .home a {
+        color: white;
+    }
+
+    .navbar_under {
+        width: fit-content;
+        margin: 15px auto 15px auto;
+    }
+
+    .navbar hr {
+        width: 100%;
+        background-color: #293A80;
+        border: solid 0;
+    }
+
+    .navbar_team {
+        text-align: center;
+        color: white;
+        font-size: 24px;
+        margin: 10px;
+    }
+</style>
+
+<div class="navbar">
+    <div class="home">
+        <a href="/" class="">
+            Home
+        </a>
+    </div>
+    
+    <div class="navbar_under">
+        {% if request.user.is_authenticated %}        
+            {% if player.team != None %}
+                <p class="navbar_team">Команда</p>
+                <p class="navbar_team" style="font-size:40px">{{player.team}}</p>
+            {% else %}
+                <p>Вы ещё не вступили в команду</p>
+            {% endif %}
+        
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </div>
+    <hr>
+
+    <div class="user_label">
+        <p>{{request.user}}</p>
+        <a href="{% url 'logout' %}">Выйти из аккаунта</a>
+    </div>
+</div>

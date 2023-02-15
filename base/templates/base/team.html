@@ -1,0 +1,86 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<style>
+    .form_container {
+    width: 450px;
+    height: 500px;
+    margin: 0 auto 0 auto;
+    color: white;
+
+    text-align: center;
+    background-color: #293A80;
+
+    border-radius: 0 0 50px 50px;
+}
+
+hr {
+    height: 3px;
+    background-color: #293A80;
+    width: 600px;
+    border: none;
+
+    margin: 0;
+}
+
+p {
+    margin-top: 20px;
+}
+
+.placeholder {
+    height: 20px;
+}
+
+.form_container p {
+    font-size: 20px;
+}
+
+.team_name {
+    font-style: bold;
+    font-size: 24px;
+    text-decoration: underline;
+}
+
+</style>
+
+
+{% csrf_token %}
+
+<div class="form_container">
+    <div class="placeholder"></div>
+    <p class="">Команда:</p>
+    <p class="team_name">{{team_view.name}}</p>
+    <div class="placeholder"></div>
+    <p class="">Участники:</p>
+    {% for player in team_members %}
+    <p>{{player.username}}</p>
+
+    {% endfor %}
+
+    {% if request.user.is_authenticated %}
+    {% if player.team.name == team_view.name %}
+    <div class="">
+        <form method="POST" action="">
+            {% csrf_token %}
+            <input type="submit" name="leaveTeam" value="Выйти из команды">
+        </form>
+    </div>
+    {% else %}
+    {% if player.team == None %}
+    {% if team_view.members.count == 2 %}
+    Максимум участников
+    {% else %}
+    <div class="">
+        <form method="POST" action="">
+            {% csrf_token %}
+            <input type="submit" name="body" value="Вступить в команду">
+        </form>
+    </div>
+    {% endif %}
+    {% endif %}
+    {% endif %}
+    {% endif %}
+</div>
+
+{% endblock %}
